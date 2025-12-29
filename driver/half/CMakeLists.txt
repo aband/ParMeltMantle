@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.28)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
