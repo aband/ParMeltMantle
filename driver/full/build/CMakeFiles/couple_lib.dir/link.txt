@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcouple_lib.a CMakeFiles/couple_lib.dir/home/renpo/Research/MantleSolver_cpp/src/corner/couple.cpp.o CMakeFiles/couple_lib.dir/home/renpo/Research/MantleSolver_cpp/src/corner/print.cpp.o CMakeFiles/couple_lib.dir/porosity.cpp.o CMakeFiles/couple_lib.dir/flow.cpp.o
+/usr/bin/ranlib libcouple_lib.a

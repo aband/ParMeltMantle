@@ -1,0 +1,4 @@
+/home/renpo/Research/MantleSolver_cpp/src/phase/test/build/CMakeFiles/plotphase.dir
+/home/renpo/Research/MantleSolver_cpp/src/phase/test/build/CMakeFiles/plotphase_rescale.dir
+/home/renpo/Research/MantleSolver_cpp/src/phase/test/build/CMakeFiles/edit_cache.dir
+/home/renpo/Research/MantleSolver_cpp/src/phase/test/build/CMakeFiles/rebuild_cache.dir

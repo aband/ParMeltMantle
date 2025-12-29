@@ -1,0 +1,1 @@
+/home/renpo/system/mpich-install/bin/mpicxx -rdynamic CMakeFiles/plotphase.dir/plotphase.cpp.o CMakeFiles/plotphase.dir/home/renpo/Research/MantleSolver_cpp/src/phase/eutectic.cpp.o -o plotphase  -Wl,-rpath,/home/renpo/system/petsc-install-gnu/lib /home/renpo/system/petsc-install-gnu/lib/libpetsc.so -llapacke 

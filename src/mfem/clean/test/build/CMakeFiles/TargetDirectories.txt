@@ -1,0 +1,7 @@
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/general_lib.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/phase_lib.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/clean_mfem_lib.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/io_lib.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/test.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/edit_cache.dir
+/home/renpo/Research/MantleSolver_cpp/src/mfem/clean/test/build/CMakeFiles/rebuild_cache.dir
