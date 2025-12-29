@@ -1,0 +1,17 @@
+*.dat
+*.o
+*.swp
+*.avi
+
+*.log
+*.aux
+*.blg
+*.bbl
+*.ill
+*.lot
+*.map
+*.out
+*.toc
+*.slide
+
+build/
