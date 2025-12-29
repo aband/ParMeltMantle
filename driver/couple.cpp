@@ -3,7 +3,7 @@
 
 int couple::CreatePhase(){
 
-    myPhase = Phase();
+  //myPhase = Phase();
     myPhase.pp = (PhysProperty *)malloc(sizeof(PhysProperty));
 
     AssignPhyProperties(myPhase.pp);

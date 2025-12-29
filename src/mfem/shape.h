@@ -31,7 +31,7 @@ class shape{
        bool onBndry(const MeshInfo& mi, 
             const int& globaldof) const {return ptr_->onBndry(mi, globaldof);};
 
-       double Pressure() const {return ptr_.Pressure();};
+       double Pressure() const {return ptr_->Pressure();};
 
        vertexSet corners() const {return basisPtr_->corners();};
 

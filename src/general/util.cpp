@@ -306,7 +306,7 @@ std::array<vertex,2> extractEdge(const MeshInfo& mi, const int& globalEdge){
 
         edge[0] = mi.lmesh[FlatIndic(mi.MPIlocalVertexSizeFull[0], leftVertexIndex)];
 
-        leftVertexIndex += {1,0};
+        leftVertexIndex += indice(1,0);
 
         edge[1] = mi.lmesh[FlatIndic(mi.MPIlocalVertexSizeFull[0], leftVertexIndex)];
 
@@ -316,7 +316,7 @@ std::array<vertex,2> extractEdge(const MeshInfo& mi, const int& globalEdge){
         edge[0] = mi.lmesh[FlatIndic(mi.MPIlocalVertexSizeFull[0],
                   bottomVertexIndex)];
 
-        bottomVertexIndex += {0,1};
+        bottomVertexIndex += indice(0,1);
 
         edge[1] = mi.lmesh[FlatIndic(mi.MPIlocalVertexSizeFull[0],
                   bottomVertexIndex)];

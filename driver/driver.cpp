@@ -7,7 +7,7 @@ int main(int argc, char **argv){
     PetscMPIInt   size,rank;
     PetscInitialize(&argc, &argv, NULL, NULL);
 
-    MPI_Init(NULL,NULL);
+    //MPI_Init(NULL,NULL);
     MPI_Comm_size(PETSC_COMM_WORLD,&size);
     MPI_Comm_rank(PETSC_COMM_WORLD,&rank);
 
