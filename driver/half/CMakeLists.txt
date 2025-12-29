@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 4.1)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
@@ -8,11 +8,13 @@ set(PETSC $ENV{PETSC_DIR}/$ENV{PETSC_ARCH})
 
 #set(LAPACK $ENV{LAPACK_DIR})
 
-set(HDF5 $ENV{HDF5_DIR})
+#set(HDF5 $ENV{HDF5_DIR})
 
 set(SRC $ENV{ParMeltMantle})
 
 # PKG_CONFIG_PATH is set mannually in bashrc
+
+project(test)
 
 # Remove the lines below if you do not wish to have PETSc determine the compilers
 execute_process ( COMMAND pkg-config PETSc --variable=ccompiler COMMAND tr -d '\n' OUTPUT_VARIABLE C_COMPILER)
@@ -30,8 +32,6 @@ endif (FORTRAN_COMPILER)
 # Set Optimization flags
 set(CMAKE_CXX_FLAGS "-O2 -Wall -Wextra")
 #set(CMAKE_CXX_FLAGS "-g")
-
-project(test)
 
 # Find packages using find_package 
 find_package(PkgConfig REQUIRED)
@@ -55,6 +55,7 @@ target_include_directories(general_lib
 )
 
 target_link_libraries(general_lib
+    PkgConfig::LAPACKE
     PkgConfig::PETSC
 )
 
