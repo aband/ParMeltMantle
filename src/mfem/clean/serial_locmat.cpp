@@ -27,12 +27,12 @@ int DarcyStokes::AssignLocMatStokes(const MeshInfo& mi,
     clearLocMat(12, loc);
    
     // copy gaussian quadrature points
-    const valarray<double>& gwe = GaussWeightsEdge;
-    const valarray<double>& gpe = GaussPointsEdge;
+    //const valarray<double>& gwe = GaussWeightsEdge;
+    //const valarray<double>& gpe = GaussPointsEdge;
     const valarray<double>& gwf = GaussWeightsFace;
     const vector<vertex>&   gpf = GaussPointsFace;
 
-    for (int g=0; g<gwf.size(); g++){
+    for (int g=0; g<(int)gwf.size(); g++){
         // Calculate mapped gauss points and jacobian
         vertex mapped = GaussMapPointsFace(gpf[g],basis_.corners());
         double jac = abs(GaussJacobian(gpf[g],basis_.corners()));
@@ -145,7 +145,7 @@ int DarcyStokes::AssignLocMatDarcy(const MeshInfo& mi,
 
         double len = length(corner);
 
-        for (int g=0; g<gpe.size(); g++){
+        for (int g=0; g<(int)gpe.size(); g++){
 
             vertex mapped = GaussMapPointsEdge({gpe[g]},corner);
             std::array<vertex, 8>  hdivwork = hdiv_.ComputeHdivmixed(basis_,mapped);

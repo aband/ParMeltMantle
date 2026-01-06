@@ -48,13 +48,16 @@ PetscErrorCode ReadSolutionLocal(DM dmu, Vec *globalu, vector< vector<double> >&
     Vec      gu = *globalu;
     Vec      lu;
     double   **localu; 
-    PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    PetscInt xs,ys,xm,ym;
     PetscFunctionBeginUser;
 
-    ierr = DMGetLocalVector(dmu, &lu);                      CHKERRQ(ierr);
-    ierr = DMGlobalToLocalBegin(dmu, gu, INSERT_VALUES, lu);CHKERRQ(ierr); 
-    ierr = DMGlobalToLocalEnd(dmu, gu, INSERT_VALUES, lu);  CHKERRQ(ierr);
-    ierr = DMDAVecGetArray(dmu, lu, &localu);               CHKERRQ(ierr);
+    ierr = DMDAGetCorners(dmu, &xs, &ys, NULL, &xm, &ym, NULL); CHKERRQ(ierr);
+    int stencilwidth = 0;
+
+    ierr = DMGetLocalVector(dmu, &lu);                         CHKERRQ(ierr);
+    ierr = DMGlobalToLocalBegin(dmu, gu, INSERT_VALUES, lu);   CHKERRQ(ierr); 
+    ierr = DMGlobalToLocalEnd(dmu, gu, INSERT_VALUES, lu);     CHKERRQ(ierr);
+    ierr = DMDAVecGetArray(dmu, lu, &localu);                  CHKERRQ(ierr);
 
     for (int j=ys-stencilwidth; j<ys+ym+stencilwidth; j++){
     for (int i=xs-stencilwidth; i<xs+xm+stencilwidth; i++){
@@ -76,7 +79,8 @@ PetscErrorCode SimpleInitialValue(DM dm, DM dmu, Vec *fullmesh, Vec *globalu,
     Vec            gu,fmesh,lmesh;
     Point          **localmesh;
     double         **localu;
-    PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    //PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    PetscInt xs,ys,xm,ym,M,N;
     PetscFunctionBeginUser;
 
     gu    = *globalu;
@@ -94,7 +98,7 @@ PetscErrorCode SimpleInitialValue(DM dm, DM dmu, Vec *fullmesh, Vec *globalu,
     ierr = DMDAVecGetArrayRead(dm, lmesh, &localmesh);           CHKERRQ(ierr);
 
     Point   p0,p1,p2,p3;
-    double  result;
+    //double  result;
 
     for (int j=ys; j<ym+ys; j++){
     for (int i=xs; i<xm+xs; i++){
@@ -143,7 +147,9 @@ PetscErrorCode SimpleInitialValue(DM dm, DM dmu, Vec *fullmesh, Vec *globalu, co
     Vec            gu,fmesh,lmesh;
     Point          **localmesh;
     double         **localu;
-    PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    //PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    PetscInt xs,ys,xm,ym,M,N;
+
     PetscFunctionBeginUser;
 
     gu    = *globalu;
@@ -161,7 +167,7 @@ PetscErrorCode SimpleInitialValue(DM dm, DM dmu, Vec *fullmesh, Vec *globalu, co
     ierr = DMDAVecGetArrayRead(dm, lmesh, &localmesh);           CHKERRQ(ierr);
 
     Point   p0,p1,p2,p3;
-    double  result;
+    //double  result;
 
     for (int j=ys; j<ym+ys; j++){
     for (int i=xs; i<xm+xs; i++){
@@ -208,7 +214,8 @@ PetscErrorCode SimpleInitialValue(DM dm, Vec *globalu, const std::vector<double>
     double **localu;
     Vec gu = *globalu;
 
-    PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    //PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    PetscInt xs,ys,xm,ym,M,N;
 
     PetscCall(DMDAGetCorners(dm, &xs, &ys, NULL, &xm, &ym, NULL)); 
     PetscCall(DMDAGetInfo(dm, NULL, &M, &N, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL));
@@ -234,7 +241,9 @@ PetscErrorCode ObliqueBurgers(DM dm, DM dmu, Vec *fullmesh, Vec *globalu,
     Vec            gu,fmesh,lmesh;
     Point          **localmesh;
     double         **localu;
-    PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    //PetscInt xs,ys,xm,ym,M,N,stencilwidth;
+    PetscInt xs,ys,xm,ym,M,N;
+
     PetscFunctionBeginUser;
 
     gu    = *globalu;
@@ -252,7 +261,7 @@ PetscErrorCode ObliqueBurgers(DM dm, DM dmu, Vec *fullmesh, Vec *globalu,
     ierr = DMDAVecGetArrayRead(dm, lmesh, &localmesh);           CHKERRQ(ierr);
 
     Point   p0,p1,p2,p3;
-    double  result;
+    //double  result;
 
     for (int j=ys; j<ym+ys; j++){
     for (int i=xs; i<xm+xs; i++){

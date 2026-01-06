@@ -35,10 +35,10 @@ set(CMAKE_CXX_FLAGS "-O2 -Wall -Wextra")
 
 # Find packages using find_package 
 find_package(PkgConfig REQUIRED)
-find_package(MPI REQUIRED)
+#find_package(MPI REQUIRED)
 pkg_search_module(PETSC REQUIRED IMPORTED_TARGET PETSc)
 pkg_search_module(LAPACKE REQUIRED IMPORTED_TARGET lapacke)
-pkg_search_module(HDF5 REQUIRED IMPORTED_TARGET hdf5)
+#pkg_search_module(HDF5 REQUIRED IMPORTED_TARGET hdf5)
 #pkg_search_module(CGNS REQUIRED IMPORTED_TARGET cgns)
 
 # Build library
@@ -74,7 +74,7 @@ target_include_directories(io_lib
 target_link_libraries(io_lib
     general_lib
     PkgConfig::PETSC
-    PkgConfig::HDF5
+	 #    PkgConfig::HDF5
 #	 PkgConfig::CGNS
 )
 
@@ -107,6 +107,26 @@ target_include_directories(mfem_lib
 target_link_libraries(mfem_lib
     phase_lib
     general_lib
+)
+
+# ===================================================================
+# Create a library from the files in the mlweno directory
+add_library(mlweno_lib 
+		  ${SRC}/src/mlweno_array/tensorstencilpoly.cpp
+		  ${SRC}/src/mlweno_array/reconstruction.cpp
+		  ${SRC}/src/mlweno_array/error.cpp
+)
+
+# Specify any additional include directories if needed
+target_include_directories(mlweno_lib 
+		  PUBLIC ${SRC}/src/mlweno_array
+		  PUBLIC ${SRC}/src/general
+		  #PUBLIC ${PETSC_DIR}/include 
+)
+
+# Link the PETSc libraries to the mlweno_lib library
+target_link_libraries(mlweno_lib 
+        PkgConfig::PETSC
 )
 
 # ===================================================================

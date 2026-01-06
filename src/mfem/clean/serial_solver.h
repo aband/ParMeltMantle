@@ -134,7 +134,7 @@ int AssignLocRedSys(ReducedSys& redsys,
 
     const int idxn = FlatIndic(mi, global);
 
-    for (int row=0; row<elemDofs.size(); row++){
+    for (int row=0; row<(int)elemDofs.size(); row++){
         // View it as the row index
         const int idxm = ref[elemDofs.at(row)];
         const double valB = loc.B.at(row);
@@ -164,7 +164,7 @@ int AssignLocRedSys(ReducedSys& redsys,
             double vals = loc.f.at(row);
             PetscCall(VecSetValues(redsys.source, 1, &idxm, &vals, ADD_VALUES));
 
-            for (int col=0; col<elemDofs.size(); col++){
+            for (int col=0; col<(int)elemDofs.size(); col++){
                 const int cidxn  = ref[elemDofs.at(col)];
                 const double val = loc.A.at(row+col*elemDofs.size()); 
 
@@ -225,7 +225,7 @@ vector<vertex> ExtractVelocity(Vec * sol, Vec * g,
     // !Get global indiex of the local dofs in specific and correct order
     const std::vector<int> elemDofs = funcSp.LocalGlobalMap(mi, gCell);
 
-    for (int g=0; g<points.size(); g++){
+    for (int g=0; g<(int)points.size(); g++){
 
         // Initialize interpolated value
         work.at(g) = {0.0,0.0};
@@ -233,7 +233,7 @@ vector<vertex> ExtractVelocity(Vec * sol, Vec * g,
         std::vector<vertex> basisVal = funcSp.EvaluateAll(mybasis, points.at(g));
 
         // Reconstruction of value with element basis
-        for (int k=0; k<elemDofs.size(); k++){
+        for (int k=0; k<(int)elemDofs.size(); k++){
 
             if (bMarker(mi,funcSp.GlobalToLocalMapBndry(mi,elemDofs.at(k)),funcSp.name, parameter) == dirichlet){
                 work.at(g) += valuesg[refmap[elemDofs.at(k)]] * basisVal.at(k);
@@ -274,9 +274,9 @@ int ExtractVelocityEdge(vector<vertex>& edgeVelocity,
     int N = mi.MPIglobalCellSize[1];
 
     int tolvert = (M+1)*N*3;
-    int tolhori = M*(N+1)*3;
+    //int tolhori = M*(N+1)*3;
 
-    int toledgegauss = tolvert + tolhori;
+    //int toledgegauss = tolvert + tolhori;
 
     // Vertical points first
     for (int j=0; j<N  ; j++){

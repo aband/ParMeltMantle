@@ -101,7 +101,7 @@ int couple::CreateMesh(const int& M, const int& N,
     // Calculate total dofs    
     // Edge dofs are always vertical edges counted first
  
-    const valarray<double>& gwe = GaussWeightsEdge;
+    //const valarray<double>& gwe = GaussWeightsEdge;
     const valarray<double>& gpe = GaussPointsEdge;
 
     const valarray<double>& gwf = GaussWeightsFace; 
@@ -139,7 +139,7 @@ int couple::CreateMesh(const int& M, const int& N,
         indexvert = (j*(M+1) + i)*gpe.size();
         indexhori = tolvertgauss + (j*M + i)*gpe.size();
 
-        for (int g=0; g<gpe.size(); g++){
+        for (int g=0; g<(int)gpe.size(); g++){
             edgegauss.at(indexvert + g) = GaussMapPointsEdge({gpe[g]},vertedge);
             edgegauss.at(indexhori + g) = GaussMapPointsEdge({gpe[g]},horiedge);
         }   
@@ -148,7 +148,7 @@ int couple::CreateMesh(const int& M, const int& N,
         cellcenter.at(j*M+i) = (corners.at(0) + corners.at(1) + 
                                 corners.at(2) + corners.at(3))/4.0;
 
-        for (int g=0; g<gwf.size(); g++){
+        for (int g=0; g<(int)gwf.size(); g++){
             cellgauss.at(gwf.size()*(j*M+i) + g) = 
                          GaussMapPointsFace(gpf[g],corners); 
         }
@@ -164,7 +164,7 @@ int couple::CreateMesh(const int& M, const int& N,
         vertedge = {corners.at(1), corners.at(2)};
 
         indexvert = (j*(M+1) + M)*gpe.size();
-        for (int g=0; g<gpe.size(); g++){
+        for (int g=0; g<(int)gpe.size(); g++){
             edgegauss.at(indexvert + g) = GaussMapPointsEdge({gpe[g]}, vertedge);
         }
 
@@ -180,7 +180,7 @@ int couple::CreateMesh(const int& M, const int& N,
 
         indexhori = tolvertgauss + (N*M + i)*gpe.size();
 
-        for (int g=0; g<gpe.size(); g++){
+        for (int g=0; g<(int)gpe.size(); g++){
             edgegauss.at(indexhori + g) = GaussMapPointsEdge({gpe[g]}, horiedge);
         }
 

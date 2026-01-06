@@ -314,7 +314,7 @@ void basis::Test(const vertex& point){
 
     // Test R function
     int seed = 10;
-    std::array<int,2> list {0, 2};
+    //std::array<int,2> list {0, 2};
 
     for (int Case = 0; Case<4; Case ++){
         cout << "Current edge is: " << Case << endl;

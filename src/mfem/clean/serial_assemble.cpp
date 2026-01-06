@@ -405,7 +405,8 @@ int DarcyStokes::CreateCoupledSystem(){
     PetscCall(MatCreateNest(PETSC_COMM_WORLD,2,NULL,2,NULL,arrayC, &result.C));
 
     // Create right hand side and solution nested vectors
-    Vec arrayx[2], arrayy[2], arrayf[2], arrayg[2];
+    //Vec arrayx[2], arrayy[2], arrayf[2], arrayg[2];
+    Vec arrayf[2], arrayg[2];
 
     arrayf[0] = reducedStokes_.F;
     arrayf[1] = reducedDarcy_.F;
@@ -433,7 +434,7 @@ int DarcyStokes::Solve(int MaxIter, double tol){
 
     // ===========================================================
     KSP kspCG;
-    PC  pcCG; 
+    //PC  pcCG; 
     PetscCall(KSPCreate(PETSC_COMM_WORLD, &kspCG));
     PetscCall(KSPSetOperators(kspCG, result.M, result.M));
     PetscCall(KSPSetType(kspCG, KSPCG));

@@ -268,7 +268,7 @@ const vertex unitTangent(const vertexSet& edge,
 const vertex getUnitNormal(const std::array<vertex,2> edge,
                            const double& len);
 
-const double getEdgeLength(const std::array<vertex, 2> edge);
+double getEdgeLength(const std::array<vertex, 2> edge);
 
 // Some functions about cell and edge relationships
 

@@ -1,0 +1,102 @@
+#ifndef RECONSTRUCTION_H_
+#define RECONSTRUCTION_H_
+
+#include "tensorstencilpoly.h"
+
+// seriel version
+class reconstruction {
+
+    public:
+
+        reconstruction()  {};
+        ~reconstruction() {};
+
+        int init(int sizex_sm, int sizey_sm,
+                 int sizex_lg, int sizey_lg,
+					  int order_sm, int order_lg,
+					  const vector<indice>& sten_lg_pre,
+                 const vector<indice>& sten_sm_pre,
+                 const MeshInfo& mi, indice start);
+
+        int setWgts(double area);
+
+        int extractsigma(const vector<double>& sigma_lg,
+                         const vector<double>& sigam_sm);
+
+        int extractsigma(const vector<double>& sigma_lg,
+                         const vector<vector<double>>& sigam_sm);
+
+        // Stencils
+        vector<indice> sten_lg;
+        vector<indice> sten_sm;
+        int use_sten_const = 0;
+
+        vector<int> flat_sten_lg;
+        vector<int> flat_sten_sm;
+
+        // Linear weights
+        vector<double> linwgts_lg;
+        vector<double> linwgts_sm;
+        double linwgts_const = 0;
+
+        // Nonlinear weights
+        vector<double> nonlinwgts_lg;
+        vector<double> nonlinwgts_sm;
+        double nonlinwgts_const;
+
+        // r = order + 1
+        // used in weighting calculation
+        int r_sm;
+        int r_lg;
+        int r_const = 1;
+
+        indice gstart;
+
+        int eval(double ** localvals, const vector<vertex>& p, 
+                 const vector<tensorstencilpoly>& sten_lg, 
+                 const vector<tensorstencilpoly>& sten_sm);
+
+        double eval(double ** localvals, const vertex& p,
+                    const vector<tensorstencilpoly>& sten_lg,
+                    const vector<tensorstencilpoly>& sten_sm) const;
+
+        vector<double> elem_val;
+
+        // print functions
+        int printinfo();
+
+        int printmoreinfo(double ** localval,
+                    const vector<tensorstencilpoly>& sten_lg,
+                    const vector<tensorstencilpoly>& sten_sm) const;
+
+        int printsigma();
+
+        double efforder();
+
+    private:
+
+        // Extracted smoothness indicator
+        vector<double> stensigma_lg;
+        vector<double> stensigma_sm;
+
+        int stensizelgx;
+        int stensizelgy;
+
+        int stensizesmx;
+        int stensizesmy;
+
+        int allsize_lgx;
+        int allsize_lgy;
+       
+        int allsize_smx;
+        int allsize_smy;
+
+        double epsilon = 1e-6;
+        int    s       = 1;
+};
+
+int geteta(int r);
+
+bool validsten(int r, const MeshInfo& mi);
+
+#endif

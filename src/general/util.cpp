@@ -2,11 +2,11 @@
 
 // Couple of constant functions
 double constFunc(const valarray<double>& point,const vector<double>& param){
-    return 1.0;
+    return 0.0*point[0] + 0.0*param.at(0) + 1.0;
 }
 
 double constFunc(const valarray<double>& point,const vector<double>& param, double c){
-    return c;
+    return 0.0*point[0] + 0.0*param.at(0) + c;
 }
 
 double constFunc(){
@@ -186,8 +186,8 @@ void AssignValuesMeshInfo(MeshInfo& mi, DM dmv, DM dmu){
     // Pre calculate cell area for future computation.
     // Repeat calculation of cell areas cost a lot of computation resources.
     //! Extract default gauess points and gauess weights.
-    const valarray<double>& gwe = GaussWeightsEdge;
-    const valarray<double>& gpe = GaussPointsEdge;
+    //const valarray<double>& gwe = GaussWeightsEdge;
+    //const valarray<double>& gpe = GaussPointsEdge;
 
     for (int j=ys; j<ys+ym+1; j++){
     for (int i=xs; i<xs+xm+1; i++){
@@ -381,7 +381,7 @@ const vertex getUnitNormal(const std::array<vertex, 2> edge,
     return work;
 }
 
-const double getEdgeLength(const std::array<vertex, 2> edge){
+double getEdgeLength(const std::array<vertex, 2> edge){
 
     vertex vec = edge[1]-edge[0];
     vec *= vec;

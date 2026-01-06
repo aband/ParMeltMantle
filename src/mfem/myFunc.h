@@ -98,25 +98,25 @@ vertex bndryu(const vertex& point, Phase * phase);
 
 double naturvalStokes(const vertex& point, PhysProperty * pp);
 
-const bndryType bndryTypeMarker(const MeshInfo& mi, 
+bndryType bndryTypeMarker(const MeshInfo& mi, 
+                          const indice& global,
+                          const int& local);
+
+bndryType bndryTypeMarker(const MeshInfo& mi,
+                          const indice& global,
+                          const int& local,
+                          const std::vector<double>& parameter);
+
+bndryType bndryTypeMarker(const MeshInfo& mi,
+                          const indice& global);
+
+bndryType bndryTypeMarkerStokes(const MeshInfo& mi,
                                 const indice& global,
                                 const int& local);
 
-const bndryType bndryTypeMarker(const MeshInfo& mi,
-                                const indice& global,
-                                const int& local,
-                                const std::vector<double>& parameter);
-
-const bndryType bndryTypeMarker(const MeshInfo& mi,
-                                const indice& global);
-
-const bndryType bndryTypeMarkerStokes(const MeshInfo& mi,
-                                      const indice& global,
-                                      const int& local);
-
-const bndryType bndryTypeMarkerDarcy(const MeshInfo& mi,
-                                      const indice& global,
-                                      const int& edge);
+bndryType bndryTypeMarkerDarcy(const MeshInfo& mi,
+                               const indice& global,
+                               const int& edge);
 
 
 #endif

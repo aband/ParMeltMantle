@@ -47,7 +47,7 @@ double DarcyStokes::AssignBndrySupVal(const vertexSet& edgeCorner,
     // of assigned dirichlet boundary values
     double averaged = 0.0;
 
-    for (int g=0; g<gwe.size(); g++) {
+    for (int g=0; g<(int)gwe.size(); g++) {
         vertex mapped = GaussMapPointsEdge({gpe[g]}, edgeCorner);
 
         //vertex DiriVal = Dirichlet_val(mapped);
@@ -90,7 +90,7 @@ std::array<double, 2> DarcyStokes::AssignBndryValsDarcy(const vertexSet& edgeCor
     // boundary condition directly.
     // A first order approximation minimization L2 error.
 
-    for (int g=0; g<gwe.size(); g++){
+    for (int g=0; g<(int)gwe.size(); g++){
         vertex mapped = GaussMapPointsEdge({gpe[g]}, edgeCorner);
 
         std::array<vertex, 2> vals = hdiv_.ComputeHdivmixed(basis_, mapped, edge); 
@@ -226,7 +226,7 @@ int DarcyStokes::computeNaturVals(const MeshInfo& mi,
     // For Darcy part q_l = p_l - rho_l g z
     // Hence it is always zero at natural boundary condition
 
-    std::array<int, 8> elementDOFDarcy = hdiv_.LocalToGlobal(mi, gcell);
+    //std::array<int, 8> elementDOFDarcy = hdiv_.LocalToGlobal(mi, gcell);
 
     // Integration over edge
     const valarray<double>& gwe = GaussWeightsEdge;
@@ -240,7 +240,7 @@ int DarcyStokes::computeNaturVals(const MeshInfo& mi,
 
         work = 0.0;
 
-        for (int g=0; g<gwe.size(); g++){
+        for (int g=0; g<(int)gwe.size(); g++){
             vertex mapped = GaussMapPointsEdge({gpe[g]},edgeCorners);
  
             std::array<vertex, 12> brval = br_.ComputeBRmixed(basis_, mapped);

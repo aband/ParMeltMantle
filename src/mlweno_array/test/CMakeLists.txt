@@ -4,13 +4,13 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set(PETSC $ENV{PETSC_DIR}/$ENV{PETSC_ARCH})
 
-#set(ADOLC $ENV{ADOLC_DIR})
+set(ADOLC $ENV{ADOLC_DIR})
 
-#set(LAPACK $ENV{LAPACK_DIR})
+set(LAPACK $ENV{LAPACK_DIR})
 
 set(HDF5 $ENV{HDF5_DIR})
 
-set(SRC $ENV{ParMeltMantle}/src)
+set(SRC $ENV{MantleSolver}/src)
 
 # PKG_CONFIG_PATH is set mannually in bashrc
 
@@ -36,6 +36,8 @@ project(test)
 # Find packages using find_package 
 find_package(PkgConfig REQUIRED)
 find_package(MPI REQUIRED)
+#find_package(ADOLC REQUIRED)
+#pkg_search_module(ADOLC REQUIRED IMPORTED_TARGET adolc)
 pkg_search_module(PETSC REQUIRED IMPORTED_TARGET PETSc)
 pkg_search_module(LAPACKE REQUIRED IMPORTED_TARGET lapacke)
 pkg_search_module(HDF5 REQUIRED IMPORTED_TARGET hdf5)
@@ -77,84 +79,44 @@ target_link_libraries(io_lib
 #	 PkgConfig::CGNS
 )
 
-#Create a library from phase folder
-add_library(phase_lib
-		  ${SRC}/phase/eutectic_rescaled.cpp
+# Create a library from the files in the mlweno directory
+add_library(mlweno_array_lib 
+		  ${SRC}/mlweno_array/tensorstencilpoly.cpp
+		  ${SRC}/mlweno_array/reconstruction.cpp
+		  ${SRC}/mlweno_array/error.cpp
 )
 
-target_include_directories(phase_lib
-		  PUBLIC ${SRC}/phase
-		  PUBLIC ${SRC}/include
-		  )
-
-#Create a library from files in mfem file
-add_library(mfem_lib
-        ${SRC}/mfem/basis.cpp
-        ${SRC}/mfem/Hdivmixed.cpp
-        ${SRC}/mfem/brmixed.cpp
-        #${SRC}/mfem/assemble.cpp
-        #${SRC}/mfem/bndry.cpp
-        #${SRC}/mfem/solve.cpp
-        #${SRC}/mfem/error.cpp
-		  #${SRC}/mfem/shape.tpp
-		  #${SRC}/mfem/parallel/passemble.cpp
-		  #${SRC}/mfem/parallel/locmat.cpp
-		  #${SRC}/mfem/parallel/psolve.cpp
-		  #${SRC}/mfem/parallel/preconst.cpp
-		  ${SRC}/mfem/clean/serial_util.cpp
-		  ${SRC}/mfem/clean/serial_bndry.cpp
-		  ${SRC}/mfem/clean/serial_locmat.cpp
-		  ${SRC}/mfem/clean/serial_assemble.cpp
-)
-
-target_include_directories(mfem_lib
-		  PUBLIC ${SRC}/mfem
-		  PUBLIC ${SRC}/mfem/clean
-)
-
-target_link_libraries(mfem_lib
-    phase_lib
-    general_lib
-)
-
-# ===================================================================
-add_library(couple_lib
-		  ${SRC}/corner/couple.cpp
-		  ${SRC}/corner/print.cpp
-		  porosity.cpp
-		  flow.cpp
-		  )
-
-target_include_directories(couple_lib
-		  PUBLIC ${SRC}/phase
+# Specify any additional include directories if needed
+target_include_directories(mlweno_array_lib 
+		  PUBLIC ${SRC}/mlweno_array
 		  PUBLIC ${SRC}/general
-		  PUBLIC ${SRC}/mfem
-		  PUBLIC ${SRC}/mfem/clean
-		  PUBLIC ${SRC}/corner
+    PUBLIC ${PETSC_DIR}/include 
 )
 
-target_link_libraries(couple_lib
-		  io_lib
+# Link the PETSc libraries to the mlweno_lib library
+target_link_libraries(mlweno_array_lib 
+        PkgConfig::PETSC
+)
+
+# Generate an excutable file
+add_executable(testpoly
+        testpoly.cpp
+)
+
+target_link_libraries(testpoly
 		  general_lib
-		  phase_lib
-		  mfem_lib
-		  PkgConfig::PETSC
-)
-
-add_executable(driver
-		  ${SRC}/corner/driver.cpp
-)
-
-target_include_directories(driver
-		  PUBLIC ${SRC}/corner
-		  )
-
-target_link_libraries(driver
 		  io_lib
-		  phase_lib
-		  mfem_lib
-		  couple_lib
+		  mlweno_array_lib
 		  PkgConfig::LAPACKE
-		  PkgConfig::PETSC
-		  phase_lib
+)
+
+add_executable(testsigma
+        testsigma.cpp
+)
+
+target_link_libraries(testsigma
+		  general_lib
+		  io_lib
+		  mlweno_array_lib
+		  PkgConfig::LAPACKE
 )

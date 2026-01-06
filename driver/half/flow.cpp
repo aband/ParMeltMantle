@@ -106,7 +106,7 @@ vertex bndryu(const vertex& point, PhysProperty * pp){
     //double phi_f = AssignPorosity(point, pp);
     double phi_f = 0.0;
 
-    double rho_r = pp->rho_f*phi_f + pp->rho_s*(1-phi_f);
+    //double rho_r = pp->rho_f*phi_f + pp->rho_s*(1-phi_f);
 
     //double coef1 = (1-pp->phi0) * pow(pp->phi0,2+2*pp->theta);
     //double coef2 = 4*pp->mu_s*pp->U0/(3.14159265358979323846*(x*x+z*z)*pp->x0*pp->x0) /rho_r /pp->gy;
@@ -135,7 +135,7 @@ const vertex stokesForce(const vertex& point, PhysProperty * pp){
     // Returns nondimensionalized gravity.
     // Attention!!! It should not be scaled by porosity
 	 // porosity scale will be added in another function
-double V0 = pp->V0 / pp->u0;	
+//double V0 = pp->V0 / pp->u0;	
     return {0.0, -1.0};
     //return {0.0,0.0};
 }
@@ -146,10 +146,10 @@ double naturvalStokes(const vertex& point, PhysProperty * pp){
 }
 
 // ====================================================================
-const bndryType bndryTypeMarker(const MeshInfo& mi,
-                                const indice& global,
-                                const int& local,
-                                const std::vector<double>& parameter){
+bndryType bndryTypeMarker(const MeshInfo& mi,
+                          const indice& global,
+                          const int& local,
+                          const std::vector<double>& parameter){
 
     // normal dof 
     std::set<int> top_normal {11,7,6};
@@ -235,9 +235,18 @@ const bndryType bndryTypeMarker(const MeshInfo& mi,
     return type;
 }
 
-const bndryType bndryTypeMarkerDarcy(const MeshInfo& mi,
-                                     const indice& global,
-                                     const int& edge){
+bndryType bndryTypeMarkerDarcy(const MeshInfo& mi,
+                               const indice& global,
+                               const int& edge){
 
-    return dirichlet;
+    bndryType type = dirichlet;
+
+    // Example
+    if (global[0] == mi.MPIglobalCellSize[0]-1){
+        if (edge == 0){
+            type = dirichlet;
+		  }
+    } 
+
+    return type;
 }
