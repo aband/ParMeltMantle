@@ -118,5 +118,8 @@ def plot_velocity(M, N, mark, folder, name):
     plt.quiver(horigx, horigy, valhorix, valhoriy)
     plt.title('Plot Velocities on Gauss Points All together')
 
+    plt.figure()
+    plt.streamplot(revertgx[1:-1:3], revertgy[1:-1:3], revalvertx[1:-1:3], revalverty[1:-1:3], density=1.5, linewidth=1, arrowsize=1.5)
+
     plt.show()
 

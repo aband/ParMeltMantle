@@ -83,6 +83,10 @@ vertex bndryVs(const vertex& point, PhysProperty * pp){
 
     }
 
+    if (point[0] > 0.45 && point[1] >-0.3){ 
+        work[0] = V0;
+		  work[1] = 0.0;
+    }
 
     return work; 
 }
@@ -222,12 +226,24 @@ bndryType bndryTypeMarker(const MeshInfo& mi,
     if (global[0] == mi.MPIglobalCellSize[0]-1 && 
         global[1] == mi.MPIglobalCellSize[1]-1){
 
+//        if (local == 2){
+//            type = dirichlet;
+//        } else if (local == 6){
+//            type = neumann;
+//        } else if (local == 10){
+//            type = neumann;
+//        }
+
         if (local == 2){
             type = dirichlet;
         } else if (local == 6){
-            type = neumann;
+            type = dirichlet;
         } else if (local == 10){
             type = neumann;
+        } else if (local == 5){
+            type = dirichlet;
+        } else if (local == 1){
+            type = dirichlet;
         }
 
     }
