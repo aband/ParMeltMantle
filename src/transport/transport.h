@@ -15,6 +15,10 @@ int dadvfunc(const derivative& du, const double& u, const vertex& vel, const ver
 
 double inflow(const vertex& point, const vector<double>& param);
 
+bool isinflow(const double& flux);
+
+int diriBndry(const vector<vertex>& points, vector<double>& value, int flag);
+
 class TransportVariable{
 
     public:
@@ -41,6 +45,7 @@ class TransportVariable{
         int cellflux_all(const MeshInfo& mi, double maxv, DM dmu,
                          const vector<vertex>& edgegaussp,
                          const vector<vertex>& edgevel,
+								 bool globalLF, int bndryflag,
                          Vec * influx);
 
         // Print values at edge gauss points out
@@ -95,7 +100,7 @@ class TransportVariable{
                                  const vector<vertex>& edgegaussp,
                                  const vector<vertex>& edgevel,
                                  vector<double>& edgeflux,
-                                 bool localLF, 
+                                 bool localLF, int bndryflag,
                                  double gLF);
 
 };

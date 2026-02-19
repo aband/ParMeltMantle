@@ -92,16 +92,16 @@ int TransportVariable::UpdateRecon(const MeshInfo& mi, double ** locvals){
     sigma_sm.clear();
     sigma_sm.resize(stensm.size());
 
-    for (int s=0; s<stenlg.size(); s++){
+    for (int s=0; s<(int)stenlg.size(); s++){
         sigma_lg.at(s) = stenlg.at(s).sigma(locvals);
     }
 
-    for (int s=0; s<stensm.size(); s++){
+    for (int s=0; s<(int)stensm.size(); s++){
        sigma_sm.at(s) = stensm.at(s).sigma(locvals);
     }
 
     // Setup nonlinear weights
-    for (int s=0; s<my_recon.size(); s++){
+    for (int s=0; s<(int)my_recon.size(); s++){
         my_recon.at(s)->extractsigma(sigma_lg, sigma_sm);
         my_recon.at(s)->setWgts(1.0/(double)M/(double)N);
     }
@@ -141,7 +141,7 @@ int TransportVariable::Evaluate(const MeshInfo& mi, DM dmu){
 int TransportVariable::EvaluateEdge(int i, int j, const MeshInfo& mi, double ** locvals){
 
     // Get gauss points on the edges 
-    const valarray<double>& gwe = GaussWeightsEdge;
+    //const valarray<double>& gwe = GaussWeightsEdge;
     const valarray<double>& gpe = GaussPointsEdge;
 
     vertexSet corners = extractCorners(mi, {i,j});
@@ -154,7 +154,7 @@ int TransportVariable::EvaluateEdge(int i, int j, const MeshInfo& mi, double ** 
     for (int e=0; e<4; e++){
         vertexSet edge = {corners.at(edgeBound.at(e)[0]), corners.at(edgeBound.at(e)[1])};
 
-        for (int g=0; g<gpe.size(); g++){
+        for (int g=0; g<(int)gpe.size(); g++){
             gaussp.at(e*gpe.size()+g) = GaussMapPointsEdge({gpe[g]}, edge);
         }
     }

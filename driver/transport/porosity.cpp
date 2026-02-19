@@ -24,7 +24,11 @@ static double AssignPorosity(const vertex& point){
 
     }
 
-    return 0.0;
+    // temporary ======
+    value = 0.0;
+    // ================
+
+    return value;
 
 }
 
@@ -35,14 +39,14 @@ int couple::computePorosity(){
     edgeporo.clear();
     edgeporo.resize(edgegauss.size());
 
-    for (int g=0; g<edgegauss.size(); g++){
+    for (int g=0; g<(int)edgegauss.size(); g++){
         edgeporo.at(g) = AssignPorosity(edgegauss.at(g)); 
     }
 
     cellporo.clear();
     cellporo.resize(cellgauss.size());
 
-    for (int g=0; g<cellgauss.size(); g++){
+    for (int g=0; g<(int)cellgauss.size(); g++){
         cellporo.at(g) = AssignPorosity(cellgauss.at(g));
     }
 
@@ -63,7 +67,7 @@ int couple::computePorosity(){
 
         vector<vertex> corners = extractCorners(mi, {i,j});
 
-        for (int g=0; g<gwf.size(); g++){
+        for (int g=0; g<(int)gwf.size(); g++){
 
             vertex mapped = GaussMapPointsFace(gpf[g], corners);
 
